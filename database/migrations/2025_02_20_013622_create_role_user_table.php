@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('assets', function (Blueprint $table) {
-            $table->rename('nama', 'name');
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId( 'role_id' )->onDelete('cascade');
+            $table->foreignId( 'user_id' )->onDelete('cascade');
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('assets', function (Blueprint $table) {
-            $table->rename( 'name','nama');
-        });
+        Schema::dropIfExists('role_user');
     }
 };

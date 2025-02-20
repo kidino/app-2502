@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('assets', function (Blueprint $table) {
-            $table->rename('nama', 'name');
+        Schema::create('notes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->onDelete('cascade');
+            $table->string('title');
+            $table->text('content');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('assets', function (Blueprint $table) {
-            $table->rename( 'name','nama');
-        });
+        Schema::dropIfExists('notes');
     }
 };

@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\DemoController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -35,21 +37,30 @@ Route::middleware('auth')->name('user.')->group(function(){
 });
 
 
-Route::middleware('auth')->name('role.')->group(function(){
+// Route::middleware('auth')->name('role.')->group(function(){
 
-    // Roles listing
-    Route::get('/role',[RoleController::class,'index'])->name('index');
+    // // Roles listing
+    // Route::get('/role',[RoleController::class,'index'])->name('index');
 
-    // new role form
-    Route::get('/role/create',[RoleController::class,'create'])->name('create');
+    // // new role form
+    // Route::get('/role/create',[RoleController::class,'create'])->name('create');
 
-    // process new role form data
-    Route::post('/role',[RoleController ::class,'store'])->name('store');
+    // // process new role form data
+    // Route::post('/role',[RoleController ::class,'store'])->name('store');
 
-    // process new role form data
-    Route::get('/role/{role}/edit', [RoleController::class, 'edit'])->name('edit');
-});
+    // // process new role form data
+    // Route::get('/role/{role}/edit', [RoleController::class, 'edit'])->name('edit');
 
+
+// });
+
+Route::resource('role',RoleController::class)->middleware('auth');
+
+Route::resource('note',NoteController::class)->middleware('auth');
+
+Route::resource('demo', DemoController::class);
+
+Route::view('test-login', 'layouts.test-login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

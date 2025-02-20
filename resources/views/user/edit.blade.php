@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <form method="POST" action="{{ route('user.update', $user->id) }}">
                         @csrf
-                        @method('PUT')
+                        @method('PATCH')
 
                         <!-- Name -->
                         <div class="mt-4">
