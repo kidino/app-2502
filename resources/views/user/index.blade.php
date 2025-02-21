@@ -16,7 +16,6 @@
                         </div>
                     @endif
 
-
                     <a href="{{ route('user.create') }}" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 inline-block">
                         New User
                     </a>
@@ -30,6 +29,7 @@
                             <th class="py-3 px-6 text-left">ID</th>
                             <th class="py-3 px-6 text-left">Name</th>
                             <th class="py-3 px-6 text-left">Email</th>
+                            <th class="py-3 px-6 text-left">Notes</th>
                             <th class="py-3 px-6 text-left">Roles</th>
                             <th class="py-3 px-6 text-left">Action</th>
                         </tr>
@@ -41,6 +41,7 @@
                                 <td class="py-3 px-6">{{ $user->id }}</td>
                                 <td class="py-3 px-6">{{ $user->name }}</td>
                                 <td class="py-3 px-6">{{ $user->email }}</td>
+                                <td class="py-3 px-6">{{ $user->notes_count }}</td>
                                 <td class="py-3 px-6">
                                     @if($user->roles->count() > 0)
                                         <div class="flex flex-wrap gap-1">

@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Scopes\UserNoteScope;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index() {
 
-        $users = User::paginate(10);
+        // $users = User::with('roles')->withCount('notes')->paginate(10);
+
+        // to override Scope Rule
+        $users = User::with('roles')
+        ->withCount(['notes' => function ($query) {
+            $query->withoutGlobalScope(UserNoteScope::class); 
+        }])
+        ->paginate(10);
 
         return view('user.index', compact('users'));
     }
