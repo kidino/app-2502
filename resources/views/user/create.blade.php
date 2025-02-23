@@ -10,6 +10,8 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
+
+                
         <form method="POST" action="{{ route('user.store') }}">
             @csrf
 
@@ -51,7 +53,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('user.index') }}">
+                <a class="btn btn-ghost" href="{{ route('user.index') }}">
                     {{ __('Cancel') }}
                 </a>
 

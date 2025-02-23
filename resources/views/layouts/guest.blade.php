@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html
-    data-theme="valentine"
+    data-theme="emerald"
     lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">

@@ -10,37 +10,36 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-@if(session('success'))
-    <div class="bg-green-500 text-white p-4 rounded-lg mb-4">
-        {{ session('success') }}
-    </div>
-@endif
+                @if(session('success'))
+                    <x-alert-success />
+                @endif
 
-
-<a href="{{ route('role.create') }}" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 inline-block">
-  New User
+@can('create', App\Models\Role::class)
+<a href="{{ route('role.create') }}" class="btn btn-primary">
+  New Role
 </a>
+@endcan 
 
 <div class="mb-4"></div>
 
 
-                <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-            <thead class="bg-gray-800 text-white">
+                <table class="table table-zebra table-sm">
+            <thead>
                 <tr>
-                    <th class="py-3 px-6 text-left">ID</th>
-                    <th class="py-3 px-6 text-left">Name</th>
-                    <th class="py-3 px-6 text-left">Description</th>
-                    <!-- <th class="py-3 px-6 text-left">Action</th> -->
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
 
             @foreach( $roles as $role )
                 <tr class="border-b border-gray-300 hover:bg-gray-100">
-                    <td class="py-3 px-6">{{ $role->id }}</td>
-                    <td class="py-3 px-6">{{ $role->name }}</td>
-                    <td class="py-3 px-6">{{ $role->description }}</td>
-                    <!-- <td class="py-3 px-6"> <a href="{{route('role.edit', $role->id)}}"> Edit Role </a> </td> -->
+                    <td>{{ $role->id }}</td>
+                    <td>{{ $role->name }}</td>
+                    <td>{{ $role->description }}</td>
+                    <td><a class="btn btn-neutral btn-sm" href="{{route('role.edit', $role->id)}}">Edit</a></td>
                 </tr>
             @endforeach
 
@@ -52,4 +51,8 @@
             </div>
         </div>
     </div>
+
+    @includeif('helper.fade-alert-success', ['status' => session('success')])
+
+
 </x-app-layout>

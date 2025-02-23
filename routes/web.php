@@ -18,21 +18,21 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->name('user.')->group(function(){
 
     // user listing
-    Route::get('/user',[UserController::class,'index'
+    Route::get('user',[UserController::class,'index'
     ])->name('index');
 
     // new user form
-    Route::get('/user/create',[UserController::class,'create'
+    Route::get('user/create',[UserController::class,'create'
     ])->name('create');
 
     // process new user form data
-    Route::post('/user',[UserController::class,'store'
+    Route::post('user',[UserController::class,'store'
     ])->name('store');
 
-    Route::get('/user/{id}/edit',[UserController::class,'edit'
+    Route::get('user/{user}/edit',[UserController::class,'edit'
     ])->name('edit');
 
-   Route::patch('/user/{id}/update',[UserController::class,'update'
+   Route::patch('user/{id}',[UserController::class,'update'
    ])->name('update');
 });
 

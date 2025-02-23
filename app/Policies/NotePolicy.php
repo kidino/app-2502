@@ -8,12 +8,21 @@ use Illuminate\Auth\Access\Response;
 
 class NotePolicy
 {
+
+    public function before(User $user, string $ability) {
+        if ($user->hasRole('Admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +30,7 @@ class NotePolicy
      */
     public function view(User $user, Note $note): bool
     {
-        return false;
+        return $note->user_id === $user->id;
     }
 
     /**
@@ -29,7 +38,7 @@ class NotePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +46,7 @@ class NotePolicy
      */
     public function update(User $user, Note $note): bool
     {
-        return false;
+        return $note->user_id === $user->id;
     }
 
     /**
@@ -45,7 +54,7 @@ class NotePolicy
      */
     public function delete(User $user, Note $note): bool
     {
-        return false;
+        return $note->user_id === $user->id;
     }
 
     /**

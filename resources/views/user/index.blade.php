@@ -11,42 +11,42 @@
                 <div class="p-6 text-gray-900">
 
                     @if(session('success'))
-                        <div class="bg-green-500 text-white p-4 rounded-lg mb-4">
-                            {{ session('success') }}
-                        </div>
+                    <x-alert-success />
                     @endif
 
-                    <a href="{{ route('user.create') }}" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 inline-block">
+                    @can('create', App\Models\User::class)
+                    <a href="{{ route('user.create') }}" class="btn btn-primary">
                         New User
                     </a>
+                    @endcan 
 
                     <div class="mb-4">{{ $users->links() }}</div>
 
 
-                    <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-                        <thead class="bg-gray-800 text-white">
+                    <table class="table table-zebra table-sm">
+                        <thead class="">
                         <tr>
-                            <th class="py-3 px-6 text-left">ID</th>
-                            <th class="py-3 px-6 text-left">Name</th>
-                            <th class="py-3 px-6 text-left">Email</th>
-                            <th class="py-3 px-6 text-left">Notes</th>
-                            <th class="py-3 px-6 text-left">Roles</th>
-                            <th class="py-3 px-6 text-left">Action</th>
+                            <th class="">ID</th>
+                            <th class="">Name</th>
+                            <th class="">Email</th>
+                            <th class="">Notes</th>
+                            <th class="">Roles</th>
+                            <th class="">Action</th>
                         </tr>
                         </thead>
                         <tbody>
 
                         @foreach( $users as $user )
-                            <tr class="border-b border-gray-300 hover:bg-gray-100">
-                                <td class="py-3 px-6">{{ $user->id }}</td>
-                                <td class="py-3 px-6">{{ $user->name }}</td>
-                                <td class="py-3 px-6">{{ $user->email }}</td>
-                                <td class="py-3 px-6">{{ $user->notes_count }}</td>
-                                <td class="py-3 px-6">
+                            <tr class="">
+                                <td class="">{{ $user->id }}</td>
+                                <td class="">{{ $user->name }}</td>
+                                <td class="">{{ $user->email }}</td>
+                                <td class="">{{ $user->notes_count }}</td>
+                                <td class="">
                                     @if($user->roles->count() > 0)
                                         <div class="flex flex-wrap gap-1">
                                             @foreach($user->roles as $role)
-                                                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
+                                                <span class="badge badge-accent badge-sm">
                                         {{ $role->name }}
                                     </span>
                                             @endforeach
@@ -56,8 +56,8 @@
                                     @endif
                                 </td>
                                 <td class="py-3 px-6">
-                                    <a href="{{ route('user.edit', $user->id) }}" class="text-blue-600 hover:text-blue-900 underline">
-                                        Edit profile
+                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-neutral btn-sm">
+                                        Edit
                                     </a>
                                 </td>
                             </tr>
@@ -71,4 +71,8 @@
             </div>
         </div>
     </div>
+
+    @includeif('helper.fade-alert-success', ['status' => session('success')])
+
 </x-app-layout>
+

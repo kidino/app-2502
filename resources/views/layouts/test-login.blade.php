@@ -25,7 +25,7 @@
                     <label class="block text-gray-700">Password</label>
                     <input type="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your password">
                 </div>
-                <button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">Login</button>
+                <x-primary-button>Login</x-primary-button>
             </form>
         </div>
         <!-- Background Image -->

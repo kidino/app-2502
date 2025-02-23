@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreNoteRequest;
-use App\Http\Requests\UpdateNoteRequest;
+use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class NoteController extends Controller
 {
+
+    use AuthorizesRequests;
+
+    public function __construct() {
+        $this->authorizeResource(Note::class, 'note');
+    }    
+
     /**
      * Display a listing of the resource.
      */
@@ -40,7 +47,7 @@ class NoteController extends Controller
 
         Note::create($validated_data);
 
-        return redirect( route('note.index') )->with('success', 'Note has been created.');
+        return redirect(route('note.index'))->with('success', 'Note has been created.');
     }
 
     /**
@@ -56,15 +63,22 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        //
+        return view('note.edit', compact('note'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateNoteRequest $request, Note $note)
+    public function update(Request $request, Note $note)
     {
-        //
+        $validated_data = $request->validate([
+            'title' => 'string|required|min:5',
+            'content' => 'string|required|min:10'
+        ]);
+
+        $note->update($validated_data);
+
+        return redirect(route('note.index'))->with('success', 'Note has been updated.');
     }
 
     /**

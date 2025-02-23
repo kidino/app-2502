@@ -66,10 +66,10 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-6">
-                            <a href="{{ route('user.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 mr-3">
+                            <a href="{{ route('user.index') }}" class="btn btn-ghost">
                                 {{ __('Cancel') }}
                             </a>
-                            <x-primary-button>
+                            <x-primary-button class="ml-4">
                                 {{ __('Update') }}
                             </x-primary-button>
                         </div>

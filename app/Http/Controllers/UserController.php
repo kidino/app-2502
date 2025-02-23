@@ -5,11 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use App\Models\Scopes\UserNoteScope;
+
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
 {
+
+    use AuthorizesRequests;
+
+    public function __construct() {
+        $this->authorizeResource(User::class, 'user');
+    }    
+
     public function index() {
 
         // $users = User::with('roles')->withCount('notes')->paginate(10);
@@ -50,10 +60,7 @@ class UserController extends Controller
     }
 
     //  Get user data by id and pass it to the view
-    public function edit($id) {
-
-        $user = User::find($id);
-
+    public function edit(User $user) {
         $roles = Role::all();
 
         return view('user.edit', compact('user','roles'));

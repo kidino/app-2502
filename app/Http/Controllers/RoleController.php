@@ -30,7 +30,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('role.create');
     }
 
     /**
@@ -38,7 +38,17 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255|unique:roles,name',
+            'description' => 'nullable|string',
+        ]);
+
+        // Create a new role with the validated data
+        Role::create($request->only('name', 'description'));
+
+        // Redirect back with a success message
+        return redirect()->route('role.index')->with('success', 'Role created successfully.');
     }
 
     /**
@@ -54,7 +64,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        return view('role.edit', compact('role'));
     }
 
     /**
@@ -62,7 +72,17 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255|unique:roles,name,' . $role->id,
+            'description' => 'nullable|string',
+        ]);
+
+        // Update the role with the validated data
+        $role->update($request->only('name', 'description'));
+
+        // Redirect back with a success message
+        return redirect()->route('role.index')->with('success', 'Role updated successfully.');
     }
 
     /**

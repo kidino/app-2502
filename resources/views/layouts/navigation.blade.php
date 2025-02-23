@@ -20,20 +20,15 @@
                         {{ __('My Notes') }}
                     </x-nav-link>
 
+                    @can('viewAny', App\Models\User::class)
                     <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
                         {{ __('Users') }}
                     </x-nav-link>
-
-
-                    @can('viewAny', App\Models\Role::class)
-                    <x-nav-link :href="route('role.index')" :active="request()->routeIs('role.*')">
-                        {{ __('Roles') }}
-                    </x-nav-link>
                     @endcan
 
-                    @cannot('viewAny', App\Models\Role::class)
-                    <x-nav-link href="#" :active="request()->routeIs('role.*')">
-                        {{ __('No Roles Access') }}
+                    @can('create', App\Models\Role::class)
+                    <x-nav-link :href="route('role.index')" :active="request()->routeIs('role.*')">
+                        {{ __('Roles') }}
                     </x-nav-link>
                     @endcannot
                     
@@ -97,11 +92,13 @@
                 {{ __('My Notes') }}
             </x-responsive-nav-link>
 
+            @can('viewAny', App\Models\User::class)
             <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
                 {{ __('Users') }}
             </x-responsive-nav-link>
+            @endcan
 
-            @can('viewAny', App\Models\Role::class)
+            @can('create', App\Models\Role::class)
             <x-responsive-nav-link :href="route('role.index')" :active="request()->routeIs('role.*')">
                 {{ __('Roles') }}
             </x-responsive-nav-link>
